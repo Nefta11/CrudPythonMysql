@@ -6,3 +6,5 @@ app = FastAPI(
     description="API de Usuarios de la Universidad",
     version="1.0.0"
 )
+
+app.include_router(user)
