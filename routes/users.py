@@ -16,3 +16,8 @@ def get_db():
         yield db
     finally:
         db.close()
+        
+@user.get("/users/", response_model=List[schemas.users.User], tags=["Usuarios"])
+async def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    users = crud.users.get_user(db, skip=skip, limit=limit)
+    return users
