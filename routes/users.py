@@ -19,5 +19,5 @@ def get_db():
         
 @user.get("/users/", response_model=List[schemas.users.User], tags=["Usuarios"])
 async def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    users = crud.users.get_user(db, skip=skip, limit=limit)
-    return users
+    db_users = crud.users.get_user(db, skip=skip, limit=limit)
+    return db_users
