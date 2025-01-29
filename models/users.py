@@ -29,3 +29,6 @@ class Usuer(Base):
     contrasena = Column(String(100))
     numeroTelefono = Column(String(20))
     estatus = Column(Enum(Estatus))
+    fechaRegistro = Column(DateTime)
+    fechaActualizacion = Column(DateTime)
+    
