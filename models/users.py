@@ -24,4 +24,8 @@ class Usuer(Base):
     primerApellido = Column(String(60))
     segundoApellido = Column(String(60))
     TipoUsuario = Column(Enum(TipoUsuario))
-    
+    nombreUsuario = Column(String(60))
+    correoElectronico = Column(String(100))
+    contrasena = Column(String(100))
+    numeroTelefono = Column(String(20))
+    estatus = Column(Enum(Estatus))
