@@ -11,4 +11,17 @@ class TipoUsuario(str, enum.Enum):
     Administrativo = "Administrativo"
 
 class Estatus(str, enum.Enum):
+    Activo = "Activo"
+    Inactivo = "Inactivo"
+    Bloqueado = "Bloqueado"
+    Suspendido = "Suspendido"
+    
+class Usuer(Base):
+    __tablename__ = "tbb_users"
+    
+    id= Column(Integer, primary_key=True, autocommit=True)
+    nombre = Column(String(60))
+    primerApellido = Column(String(60))
+    segundoApellido = Column(String(60))
+    TipoUsuario = Column(Enum(TipoUsuario))
     
