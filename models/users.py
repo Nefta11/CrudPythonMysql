@@ -16,10 +16,10 @@ class Estatus(str, enum.Enum):
     Bloqueado = "Bloqueado"
     Suspendido = "Suspendido"
     
-class Usuer(Base):
+class User(Base):
     __tablename__ = "tbb_users"
     
-    id= Column(Integer, primary_key=True, autocommit=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     nombre = Column(String(60))
     primerApellido = Column(String(60))
     segundoApellido = Column(String(60))
@@ -31,4 +31,4 @@ class Usuer(Base):
     estatus = Column(Enum(Estatus))
     fechaRegistro = Column(DateTime)
     fechaActualizacion = Column(DateTime)
-    
+
