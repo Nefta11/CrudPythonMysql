@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from routes.users import user
+from routes.materials import router as materials_router
+from routes.loans import router as loans_router
+from config.db import Base, engine
 
 app = FastAPI(
     title="API de Usuarios",
@@ -7,4 +10,9 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Crear todas las tablas
+Base.metadata.create_all(bind=engine)
+
 app.include_router(user)
+app.include_router(materials_router, prefix="/api")
+app.include_router(loans_router, prefix="/api")
