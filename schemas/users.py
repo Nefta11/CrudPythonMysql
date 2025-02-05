@@ -6,7 +6,7 @@ class UserBase(BaseModel):
     nombre: str
     primerApellido: str
     segundoApellido: str
-    TipoUsuario: str
+    tipoUsuario: str
     nombreUsuario: str
     correoElectronico: str
     contrasena: str

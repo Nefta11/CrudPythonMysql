@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Enum
 from config.db import Base
 import enum
 
-class TipoUsuario(str, enum.Enum):
+class tipoUsuario(str, enum.Enum):
     Alumno = "Alumno"
     Profesor = "Profesor"
     secretaria = "Secretaria"
@@ -23,7 +23,7 @@ class User(Base):
     nombre = Column(String(60))
     primerApellido = Column(String(60))
     segundoApellido = Column(String(60))
-    TipoUsuario = Column(Enum(TipoUsuario))
+    tipoUsuario = Column(Enum(tipoUsuario))
     nombreUsuario = Column(String(60))
     correoElectronico = Column(String(100))
     contrasena = Column(String(100))
