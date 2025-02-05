@@ -34,8 +34,9 @@ def create_user(db: Session, user: schemas.users.UserCreate):
 def update_user(db: Session, id: int, user: schemas.users.UserUpdate):
     db_user = db.query(models.users.User).filter(models.users.User.id == id).first()
     if db_user:
-        for var, value in vars(user).items():
-            setattr(db_user, var, value) if value else None
+        update_data = user.dict(exclude_unset=True)  # Excluir campos no establecidos
+        for key, value in update_data.items():
+            setattr(db_user, key, value)
         db.commit()
         db.refresh(db_user)
     return db_user
@@ -47,3 +48,7 @@ def delete_user(db: Session, id: int):
         db.delete(db_user)
         db.commit()
     return db_user
+
+
+def get_user_by_usuario(db: Session, usuario: str):
+    return db.query(models.users.User).filter(models.users.User.nombreUsuario == usuario).first()

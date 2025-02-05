@@ -35,7 +35,7 @@ async def read_user(id: int, db: Session = Depends(get_db)):
 
 @user.post("/users/", response_model=schemas.users.User, tags=["Usuarios"])
 def create_user(user: schemas.users.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.users.get_user_by__usuario(db, usuario=user.nombreUsuario)
+    db_user = crud.users.get_user_by_usuario(db, usuario=user.nombreUsuario)
     if db_user:
         raise HTTPException(
             status_code=400, detail="Usuario existente, intente nuevamente"
@@ -47,6 +47,7 @@ def create_user(user: schemas.users.UserCreate, db: Session = Depends(get_db)):
 async def update_user(
     id: int, user: schemas.users.UserUpdate, db: Session = Depends(get_db)
 ):
+    print(user)  # Agrega esta línea para depurar los datos recibidos
     db_user = crud.users.update_user(db=db, id=id, user=user)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
