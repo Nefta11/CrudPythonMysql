@@ -3,11 +3,13 @@ from config.db import Base
 import enum
 
 class EstadoPrestamo(str, enum.Enum):
+    """Enumeración para los estados de préstamo."""
     Activo = "Activo"
     Devuelto = "Devuelto"
     Vencido = "Vencido"
 
 class Prestamo(Base):
+    """Modelo de préstamo para la base de datos."""
     __tablename__ = "tbb_loans"
     
     id = Column(Integer, primary_key=True, autoincrement=True)
