@@ -3,6 +3,7 @@ from config.db import Base
 import enum
 
 class TipoUsuario(str, enum.Enum):
+    """Enumeración para los tipos de usuario."""
     Alumno = "Alumno"
     Profesor = "Profesor"
     Secretaria = "Secretaria"
@@ -11,12 +12,14 @@ class TipoUsuario(str, enum.Enum):
     Administrativo = "Administrativo"
 
 class Estatus(str, enum.Enum):
+    """Enumeración para los estatus de usuario."""
     Activo = "Activo"
     Inactivo = "Inactivo"
     Bloqueado = "Bloqueado"
     Suspendido = "Suspendido"
     
 class User(Base):
+    """Modelo de usuario para la base de datos."""
     __tablename__ = "tbb_users"
     
     id = Column(Integer, primary_key=True, autoincrement=True)

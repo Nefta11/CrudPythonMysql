@@ -4,6 +4,7 @@ from datetime import datetime
 from enum import Enum
 
 class TipoUsuario(str, Enum):
+    """Enumeración para los tipos de usuario."""
     Alumno = "Alumno"
     Profesor = "Profesor"
     Secretaria = "Secretaria"
@@ -12,12 +13,14 @@ class TipoUsuario(str, Enum):
     Administrativo = "Administrativo"
 
 class Estatus(str, Enum):
+    """Enumeración para los estatus de usuario."""
     Activo = "Activo"
     Inactivo = "Inactivo"
     Bloqueado = "Bloqueado"
     Suspendido = "Suspendido"
 
 class UserBase(BaseModel):
+    """Modelo base para los usuarios."""
     nombre: str
     primerApellido: str
     segundoApellido: str
@@ -31,9 +34,11 @@ class UserBase(BaseModel):
     fechaActualizacion: datetime
     
 class UserCreate(UserBase):
+    """Modelo para la creación de usuarios."""
     pass
 
 class UserUpdate(BaseModel):
+    """Modelo para la actualización de usuarios."""
     nombre: Optional[str] = None
     primerApellido: Optional[str] = None
     segundoApellido: Optional[str] = None
@@ -47,6 +52,7 @@ class UserUpdate(BaseModel):
     fechaActualizacion: Optional[datetime] = None
 
 class User(UserBase):
+    """Modelo para representar un usuario con ID."""
     id: int
     class Config:
         from_attributes = True
