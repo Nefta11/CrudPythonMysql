@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Enum
+from sqlalchemy import Column, Integer, String, Enum, ForeignKey
 from config.db import Base
 import enum
 
@@ -22,7 +22,5 @@ class Material(Base):
     tipoMaterial = Column(Enum(TipoMaterial))
     marca = Column(String(60))
     modelo = Column(String(60))
-
-
-
-    # idUsuario = Column(Integer, ForeignKey("tbb_users.id"))    estado = Column(Enum(EstadoMaterial))
+    idUsuario = Column(Integer, ForeignKey("tbb_users.id"))
+    estado = Column(Enum(EstadoMaterial))
