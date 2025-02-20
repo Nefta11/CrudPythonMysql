@@ -62,6 +62,16 @@ async def delete_user(id: int, db: Session = Depends(get_db)):
 
 @user.post("/login", tags=["Usuarios"])
 def login(user: schemas.users.UserLogin, db: Session = Depends(get_db)):
+    """
+    Iniciar sesión y obtener un token JWT.
+    Args:
+        user (schemas.users.UserLogin): Objeto que contiene los datos de inicio de sesión del usuario.
+        db (Session, optional): Sesión de la base de datos. Se obtiene automáticamente mediante la dependencia `Depends(get_db)`.
+    Returns:
+        dict: Un diccionario que contiene un mensaje de bienvenida y el token de acceso JWT.
+    Raises:
+        HTTPException: Si el correo electrónico o la contraseña son incorrectos, se lanza una excepción con código de estado 401.
+    """
     """Iniciar sesión y obtener un token JWT."""
     db_user = crud.users.get_user_by_email(db, email=user.correoElectronico)
     if not db_user or db_user.contrasena != user.contrasena:
