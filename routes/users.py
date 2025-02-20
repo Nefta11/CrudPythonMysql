@@ -5,6 +5,7 @@ import crud.users
 import config.db
 import schemas.users
 import models.users
+from auth import create_access_token
 
 user = APIRouter()
 
@@ -58,3 +59,13 @@ async def delete_user(id: int, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
+
+@user.post("/login", tags=["Usuarios"])
+def login(user: schemas.users.UserLogin, db: Session = Depends(get_db)):
+    """Iniciar sesión y obtener un token JWT."""
+    db_user = crud.users.get_user_by_email(db, email=user.correoElectronico)
+    if not db_user or db_user.contrasena != user.contrasena:
+        raise HTTPException(status_code=401, detail="Correo electrónico o contraseña incorrectos")
+    
+    access_token = create_access_token(data={"sub": user.correoElectronico})
+    return {"message": "Bienvenido, te has logeado exitosamente", "access_token": access_token}

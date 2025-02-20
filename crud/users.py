@@ -52,3 +52,7 @@ def delete_user(db: Session, id: int):
 def get_user_by_usuario(db: Session, usuario: str):
     """Obtener un usuario por nombre de usuario."""
     return db.query(models.users.User).filter(models.users.User.nombreUsuario == usuario).first()
+
+def get_user_by_email(db: Session, email: str):
+    """Obtener un usuario por correo electrónico."""
+    return db.query(models.users.User).filter(models.users.User.correoElectronico == email).first()

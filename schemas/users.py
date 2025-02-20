@@ -56,3 +56,8 @@ class User(UserBase):
     id: int
     class Config:
         from_attributes = True
+
+class UserLogin(BaseModel):
+    """Modelo para el login de usuarios."""
+    correoElectronico: str
+    contrasena: str
