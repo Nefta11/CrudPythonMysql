@@ -23,6 +23,20 @@ def get_db():
         db.close()
 
 def get_current_user(credentials: HTTPAuthorizationCredentials = Security(security), db: Session = Depends(get_db)):
+    """
+    Obtener el usuario actual a partir del token JWT.
+
+    Parámetros:
+    - credentials (HTTPAuthorizationCredentials): Credenciales de autorización HTTP que contienen el token JWT.
+    - db (Session): Sesión de la base de datos proporcionada por la dependencia.
+
+    Retorna:
+    - user (User): El usuario correspondiente al token JWT.
+
+    Lanza:
+    - HTTPException: Si el token es inválido o expirado (código de estado 401).
+    - HTTPException: Si no se encuentra un usuario con el email proporcionado en el token (código de estado 401).
+    """
     """Obtener el usuario actual a partir del token JWT."""
     token = credentials.credentials
     payload = decode_access_token(token)
@@ -35,6 +49,21 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Security(securi
 
 @user.get("/users/", response_model=List[schemas.users.User], tags=["Usuarios"])
 async def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db), current_user: schemas.users.User = Depends(get_current_user)):
+    """
+    Obtener una lista de usuarios.
+
+    Args:
+        skip (int): Número de registros a omitir (paginación). Default es 0.
+        limit (int): Número máximo de registros a devolver. Default es 10.
+        db (Session): Sesión de base de datos inyectada por dependencia.
+        current_user (schemas.users.User): Usuario actual autenticado inyectado por dependencia.
+
+    Returns:
+        List[schemas.users.User]: Lista de usuarios obtenidos de la base de datos.
+
+    Nota:
+        La dependencia `get_current_user` se usa para asegurar que solo los usuarios autenticados puedan acceder a esta ruta.
+    """
     """Obtener una lista de usuarios."""
     db_users = crud.users.get_users(db, skip=skip, limit=limit)
     return db_users
