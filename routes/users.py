@@ -76,5 +76,11 @@ def login(user: schemas.users.UserLogin, db: Session = Depends(get_db)):
     if not db_user or db_user.contrasena != user.contrasena:
         raise HTTPException(status_code=401, detail="Correo electrónico o contraseña incorrectos")
     
-    access_token = create_access_token(data={"sub": user.correoElectronico})
+    # Incluir nombre y apellidos en el token
+    access_token = create_access_token(data={
+        "sub": user.correoElectronico,
+        "nombre": db_user.nombre,
+        "primerApellido": db_user.primerApellido,
+        "segundoApellido": db_user.segundoApellido
+    })
     return {"message": "Bienvenido, te has logeado exitosamente", "access_token": access_token}

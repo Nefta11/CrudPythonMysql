@@ -19,6 +19,8 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
         expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     # Añade la información de expiración a los datos
     to_encode.update({"exp": expire})
+    # Añadir nombre y apellidos al payload
+    to_encode.update({"nombre": data.get("nombre"), "primerApellido": data.get("primerApellido"), "segundoApellido": data.get("segundoApellido")})
     # Codifica los datos en un token JWT
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
