@@ -5,6 +5,7 @@ import crud.materials
 import schemas.materials
 from config.db import SessionLocal
 from dependencies import get_current_user
+from models.users import User  # Importar el modelo de usuario
 
 router = APIRouter()
 
@@ -20,7 +21,14 @@ def get_db():
 def read_materials(skip: int = 0, limit: int = 10, db: Session = Depends(get_db), current_user: schemas.users.User = Depends(get_current_user)):
     """Obtener una lista de materiales."""
     materials = crud.materials.get_materials(db, skip=skip, limit=limit)
-    return materials
+    materials_with_usernames = []
+    for material in materials:
+        user = db.query(User).filter(User.id == material.idUsuario).first()
+        material_dict = material.__dict__
+        material_dict['usuario'] = user.nombre if user else None
+        del material_dict['idUsuario']
+        materials_with_usernames.append(material_dict)
+    return materials_with_usernames
 
 @router.get("/materials/{material_id}", response_model=schemas.materials.Material, tags=["Materiales"])
 def read_material(material_id: int, db: Session = Depends(get_db), current_user: schemas.users.User = Depends(get_current_user)):

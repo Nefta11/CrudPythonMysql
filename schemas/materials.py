@@ -34,7 +34,8 @@ class MaterialUpdate(BaseModel):
     estado: Optional[EstadoMaterial] = None
 
 class Material(MaterialBase):
-    """Modelo para representar un material con ID."""
+    """Modelo para representar un material con nombre de usuario."""
     id: int
+    usuario: Optional[str] = None  # Añadir el nombre del usuario
     class Config:
         from_attributes = True
