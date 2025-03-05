@@ -32,5 +32,7 @@ class PrestamoUpdate(BaseModel):
 class Prestamo(PrestamoBase):
     """Modelo para representar un préstamo con ID."""
     id: int
+    nombreUsuario: Optional[str] = None
+    tipoMaterial: Optional[str] = None
     class Config:
         from_attributes = True
