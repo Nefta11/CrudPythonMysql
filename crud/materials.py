@@ -28,10 +28,11 @@ def update_material(db: Session, id: int, material: schemas.materials.MaterialUp
     db_material = db.query(models.materials.Material).filter(models.materials.Material.id == id).first()
     if db_material:
         update_data = material.dict(exclude_unset=True)  # Excluir campos no establecidos
-        for key, value in update_data.items():
-            setattr(db_material, key, value)
-        db.commit()
-        db.refresh(db_material)
+        if update_data:  # Verificar si hay datos para actualizar
+            for key, value in update_data.items():
+                setattr(db_material, key, value)
+            db.commit()
+            db.refresh(db_material)
     return db_material
 
 def delete_material(db: Session, id: int):
