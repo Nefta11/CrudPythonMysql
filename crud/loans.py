@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 import models.loans
 import schemas.loans
+from fastapi import HTTPException
 
 def get_prestamo(db: Session, id: int):
     """Obtener un préstamo por ID."""
@@ -27,12 +28,15 @@ def create_prestamo(db: Session, prestamo: schemas.loans.PrestamoCreate):
 def update_prestamo(db: Session, id: int, prestamo: schemas.loans.PrestamoUpdate):
     """Actualizar un préstamo existente."""
     db_prestamo = db.query(models.loans.Prestamo).filter(models.loans.Prestamo.id == id).first()
-    if db_prestamo:
-        update_data = prestamo.dict(exclude_unset=True)  # Excluir campos no establecidos
-        for key, value in update_data.items():
-            setattr(db_prestamo, key, value)
-        db.commit()
-        db.refresh(db_prestamo)
+    if not db_prestamo:
+        raise HTTPException(status_code=404, detail="Prestamo not found")
+    update_data = prestamo.dict(exclude_unset=True)  # Excluir campos no establecidos
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No fields provided for update")
+    for key, value in update_data.items():
+        setattr(db_prestamo, key, value)
+    db.commit()
+    db.refresh(db_prestamo)
     return db_prestamo
 
 def delete_prestamo(db: Session, id: int):
