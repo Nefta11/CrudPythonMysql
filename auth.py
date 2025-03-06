@@ -7,7 +7,7 @@ SECRET_KEY = "N3ft4l1"
 # Algoritmo utilizado para firmar el token JWT
 ALGORITHM = "HS256"
 # Tiempo de expiración del token de acceso en minutos
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     # Copia los datos proporcionados

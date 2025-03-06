@@ -8,6 +8,12 @@ class TipoMaterial(str, Enum):
     Canon = "Canon"
     Computadora = "Computadora"
     Extension = "Extension"
+    Proyector = "Proyector"
+    Impresora = "Impresora"
+    Monitor = "Monitor"
+    Teclado = "Teclado"
+    Ratón = "Ratón"
+    Altavoces = "Altavoces"
 
 class EstadoMaterial(str, Enum):
     """Enumeración para los estados de material."""
