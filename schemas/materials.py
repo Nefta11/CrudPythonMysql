@@ -32,6 +32,7 @@ class MaterialUpdate(BaseModel):
     marca: Optional[str] = None
     modelo: Optional[str] = None
     estado: Optional[EstadoMaterial] = None
+    idUsuario: Optional[int] = None  # Añadir idUsuario como opcional
 
 class Material(MaterialBase):
     """Modelo para representar un material con nombre de usuario."""
