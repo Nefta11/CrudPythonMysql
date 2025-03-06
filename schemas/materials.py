@@ -24,7 +24,7 @@ class MaterialBase(BaseModel):
 
 class MaterialCreate(MaterialBase):
     """Modelo para la creación de materiales."""
-    pass
+    idUsuario: int  # Añadir idUsuario para la creación
 
 class MaterialUpdate(BaseModel):
     """Modelo para la actualización de materiales."""
@@ -37,5 +37,6 @@ class Material(MaterialBase):
     """Modelo para representar un material con nombre de usuario."""
     id: int
     usuario: Optional[str] = None  # Añadir el nombre del usuario
+    idUsuario: Optional[int] = None  # Hacer idUsuario opcional para la representación
     class Config:
         from_attributes = True

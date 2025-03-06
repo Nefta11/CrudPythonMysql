@@ -17,6 +17,7 @@ def create_material(db: Session, material: schemas.materials.MaterialCreate):
         marca=material.marca,
         modelo=material.modelo,
         estado=material.estado,
+        idUsuario=material.idUsuario  # Añadir idUsuario al crear el material
     )
     db.add(db_material)
     db.commit()
