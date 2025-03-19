@@ -5,3 +5,6 @@ pydantic
 mysqlclient
 alembic
 pytest
+pymysql
+python-dotenv
+jwt
