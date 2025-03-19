@@ -5,6 +5,7 @@ from routes import users
 from routes.materials import router as materials_router
 from routes.loans import router as loans_router
 from config.db import Base, engine
+import os
 
 app = FastAPI(
     title="API de Usuarios",
@@ -28,3 +29,8 @@ Base.metadata.create_all(bind=engine)
 app.include_router(users.user)
 app.include_router(materials_router, prefix="/api")
 app.include_router(loans_router, prefix="/api")
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
