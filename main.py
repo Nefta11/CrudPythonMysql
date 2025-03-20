@@ -13,10 +13,10 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Permitir peticiones desde http://localhost:5173/
+# Permitir peticiones desde http://localhost:5173/ y https://frontendprestamos.netlify.app
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "https://frontendprestamos.netlify.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
